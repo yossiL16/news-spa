@@ -6,10 +6,14 @@ let main = document.querySelector(".pages-main");
 let home = document.querySelector(".home")
 let containerStory = document.querySelector(".container-story")
 let btnStory = document.querySelector(".create-story")
+// let form = document.querySelector("#form")
 
 
-function getNews(){
-  pages.innerHTML = ""  
+
+
+
+function getNews() {
+  pages.innerHTML = ""
   let res = localStorage.getItem('data')
   let data = JSON.parse(res)
   data.forEach(element => {
@@ -28,7 +32,7 @@ function getNews(){
   })
 }
 
-async function changePage(item){
+async function changePage(item) {
   let res = localStorage.getItem('data')
   let data = JSON.parse(res)
   data.forEach(element => {
@@ -41,31 +45,28 @@ async function changePage(item){
 getNews()
 
 document.querySelector('button').onclick = () => {
-    getNews()
+  getNews()
 };
 
 async function getRes() {
   if (localStorage.getItem('data') === null) {
     const res = await fetch(url);
-  const data = await res.json()
-  localStorage.setItem('data', JSON.stringify(data.articles))
-  return
+    const data = await res.json()
+    localStorage.setItem('data', JSON.stringify(data.articles))
+    return
   } else {
-    const data1 =  JSON.parse(localStorage.getItem("data"))
+    const data1 = JSON.parse(localStorage.getItem("data"))
     return
   }
 }
 
 btnStory.addEventListener("click", () => {
-  console.log("story");
-  // pages.style.display = "none";
-  // containerStory.style.display = "block"
   pages.innerHTML = `
                   <div class="container-story">
                     <h2 class="title-story">create new story</h2>
-                    <form>
+                    <form id="form">
                         <label class="title-text" for="title">Title:</label><br>
-                        <input class="input-title" type="text" id="title" name="title" value="enter a title"><br><br>
+                        <input class="input-title" type="text" id="title" name="title" ><br><br>
 
                         <label class="title-text" for="avatar">apend image:</label>
                         <input class="fild" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" /><br><br>
@@ -73,15 +74,44 @@ btnStory.addEventListener("click", () => {
                         <label class="title-text" for="lname">Text:</label><br>
                         <input class="input-text" type="text" id="lname" name="lname" ><br><br>
 
-                        <input class="btn-send" type="submit" value="send">
+                        <input class="btn-send" id="test" type="submit" value="send">
                     </form> 
                 </div>
   `
+  document.getElementById("test").addEventListener("click", apendItem)
 })
 
 
-// function createNewStory(){
-//   pages.innerHTML = "" 
+function apendItem(event) {
+
+  let image = document.querySelector(".fild")
+  let title = document.querySelector(".input-title")
+  let text = document.querySelector(".input-text")
+  let t = text.value
+  console.log("hey");
+  let textSlice = `${t.slice(0, 30)}...`
+
+  const item = {
+    id: Date.now(),
+    image: image,
+    source: {
+      name: "yossi"
+    },
+    title: title.value,
+    description: textSlice,
+    content: t
+  }
+
+  let data = JSON.parse(localStorage.getItem('data'))
+  data.push(item)
+  localStorage.setItem('data', JSON.stringify(data))
+
+document.querySelector("input-title").reset();
+// document.querySelector("input-text").reset();
+  event.preventDefault();
+}
 
 
-// }
+// form.addEventListener("submit", apendItem)
+
+
