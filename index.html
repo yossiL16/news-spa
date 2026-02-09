@@ -13,16 +13,31 @@
             <nav class="nav-div">
                 <h1>News</h1>
                 <div class="buttons">
-                    <button>Home</button>
-                    <button class="button-left">Create Story</button>
+                    <button class="home">Home</button>
+                    <button class="button-left create-story">Create Story</button>
                 </div>
             </nav>
             
             <div class="pages-main active bord" id="pages2">
-                <h2>Top Stories</h2>
-
+                <!-- <h2>Top Stories</h2> -->
                 <div class="pages" >
 
+                <div class="container-story">
+                    <h2 class="title-story">create new story</h2>
+                    <form>
+                        <label class="title-text" for="title">Title:</label><br>
+                        <input class="input-title" type="text" id="title" name="title" value="enter a title"><br><br>
+
+                        <label class="title-text" for="avatar">apend image:</label>
+                        <input class="fild" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" /><br><br>
+
+                        <label class="title-text" for="lname">Text:</label><br>
+                        <input class="input-text" type="text" id="lname" name="lname" ><br><br>
+
+                        <input class="btn-send" type="submit" value="send">
+                    </form> 
+                </div>
+                
         </div>
     </div>
 </body>
